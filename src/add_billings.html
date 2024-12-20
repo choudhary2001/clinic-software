@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Narayan Seva Sadan</title>
+    <link rel="stylesheet" href="./styles/tailwind.css" />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <script>
+      // Toggle mobile menu
+      function toggleMobileMenu() {
+        const mobileMenu = document.getElementById("mobile-menu");
+        mobileMenu.classList.toggle("hidden");
+      }
+
+      // Toggle user menu
+      function toggleUserMenu() {
+        const userMenu = document.getElementById("user-menu");
+        userMenu.classList.toggle("hidden");
+      }
+    </script>
+  </head>
+  <body class="bg-gray-100">
+    <nav class="bg-white">
+      <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+        <div class="relative flex h-16 items-center justify-between">
+          <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+            <!-- Mobile menu button-->
+            <button type="button" class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+              <span class="absolute -inset-0.5"></span>
+              <span class="sr-only">Open main menu</span>
+              <!-- Icon when menu is closed -->
+              <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+              <!-- Icon when menu is open -->
+              <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+            <div class="flex shrink-0 items-center">
+              <img class="h-10 w-auto cursor-pointer" src="./media/doctor.png" alt="Narayan Seva Sadan" />
+            </div>
+            <div class="hidden sm:ml-6 sm:block">
+              <div class="flex space-x-4">
+                <!-- New menu items -->
+                <a href="index.html" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Add Patient</a>
+                <a href="patient_list.html" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Patients List</a>
+                <a href="complaints.html" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Add Complaint</a>
+                <a href="services.html" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Services</a>
+                <a href="add_billings.html" class="rounded-md px-3 py-2 text-sm font-medium bg-gray-900 text-gray-300 hover:bg-gray-700 hover:text-white">Billing</a>
+                <a href="billing_details.html" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Billing Details</a>
+              </div>
+            </div>
+          </div>
+          <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            <a id="logout_button" class="relative rounded-lg bg-red-900 p-3 text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" onclick="toggleUserMenu()">Sign Out</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile menu, show/hide based on menu state -->
+      <div class="sm:hidden hidden" id="mobile-menu">
+        <div class="space-y-1 px-2 pb-3 pt-2">
+          <a href="index.html" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Add Patient</a>
+          <a href="patient_list.html" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Patients List</a>
+          <a href="complaints.html" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Add Complaint</a>
+          <a href="services.html" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Services</a>
+          <a href="add_billings.html" class="block rounded-md px-3 py-2 text-base font-medium bg-gray-900 text-gray-300 hover:bg-gray-700 hover:text-white">Billing</a>
+          <a href="billing_details.html" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Billing Details</a>
+        </div>
+      </div>
+    </nav>
+    <div class="container mx-auto my-4 p-6 bg-white shadow-lg rounded-lg">
+      <h2 class="text-xl font-bold mb-4">Billings</h2>
+
+      <form id="serviceForm">
+        <div>
+          <input type="number" id="reg_no" name="reg_no" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" placeholder="Patient Reg No." required />
+        </div>
+
+        <div id="serviceContainer" class="space-y-4">
+          <!-- Service selection template -->
+          <div class="service-item flex items-center space-x-4">
+            <select class="service-select border p-2 rounded w-full" onchange="updateTotal(this)">
+              <option value="">Select Service</option>
+              <!-- Replace with your services -->
+            </select>
+            <input type="number" min="1" value="1" class="quantity-input border p-2 rounded w-20" placeholder="Qty" oninput="updateTotal(this)" />
+            <span class="service-price text-gray-600">Price: ₹0</span>
+            <span class="total-price text-green-600 ml-4">Total: ₹0</span>
+            <button type="button" onclick="removeService(this)" class="text-red-500 font-bold">x</button>
+          </div>
+        </div>
+
+        <button type="button" id="addServiceButton" onclick="addService()" class="bg-blue-500 text-white px-4 py-2 rounded mt-4">+ Add Service</button>
+
+        <div class="mt-4 text-xl font-bold">
+          <span>Total Price: </span>
+          <span id="totalAmount" class="text-green-600">₹0</span>
+        </div>
+
+        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded mt-4">Submit</button>
+      </form>
+    </div>
+
+    <script>
+      let totalAmount = 0;
+
+      // Add a new service selection row
+      function addService() {
+        const serviceContainer = document.getElementById("serviceContainer");
+
+        const newServiceItem = document.createElement("div");
+        newServiceItem.className = "service-item flex items-center space-x-4";
+        newServiceItem.innerHTML = `
+            <select class="service-select border p-2 rounded w-full" onchange="updateTotal(this)">
+              <option value="">Select Service</option>
+            </select>
+            <input type="number" min="1" value="1" class="quantity-input border p-2 rounded w-20" placeholder="Qty" oninput="updateTotal(this)" />
+            <span class="service-price text-gray-600">Price: ₹0</span>
+            <span class="total-price text-green-600 ml-4">Total: ₹0</span>
+            <button type="button" onclick="removeService(this)" class="text-red-500 font-bold">x</button>
+          `;
+
+        serviceContainer.appendChild(newServiceItem);
+      }
+
+      // Remove a service selection row
+      function removeService(button) {
+        const serviceItem = button.parentNode;
+        const totalPrice = parseFloat(serviceItem.querySelector(".total-price").textContent.replace("Total: ₹", ""));
+
+        totalAmount -= totalPrice; // Subtract the total of the removed service from totalAmount
+        document.getElementById("totalAmount").textContent = `₹${totalAmount.toFixed(2)}`;
+
+        serviceItem.remove();
+      }
+
+      // Update price and total when quantity or service selection changes
+      function updateTotal(element) {
+        const serviceItem = element.closest(".service-item") || element.parentNode; // Ensure we're targeting the parent .service-item
+
+        if (!serviceItem) return; // If serviceItem is undefined, exit
+
+        const selectElement = serviceItem.querySelector(".service-select");
+        const quantityInput = serviceItem.querySelector(".quantity-input");
+        const priceSpan = serviceItem.querySelector(".service-price");
+        const totalPriceSpan = serviceItem.querySelector(".total-price");
+
+        const price = parseFloat(selectElement.options[selectElement.selectedIndex].getAttribute("data-price")) || 0;
+        const quantity = parseInt(quantityInput.value) || 1;
+
+        // Calculate and update the displayed price and total price for the current service
+        priceSpan.textContent = `Price: ₹${price}`;
+        totalPriceSpan.textContent = `Total: ₹${(price * quantity).toFixed(2)}`;
+
+        // Update the overall total price
+        calculateTotal();
+      }
+
+      // Calculate total price of all services
+      function calculateTotal() {
+        totalAmount = 0;
+        document.querySelectorAll(".service-item").forEach(item => {
+          const totalPrice = parseFloat(item.querySelector(".total-price").textContent.replace("Total: ₹", "")) || 0;
+          totalAmount += totalPrice;
+        });
+
+        document.getElementById("totalAmount").textContent = `₹${totalAmount.toFixed(2)}`;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Narayan Seva Sadan</title>
+    <link rel="stylesheet" href="./styles/tailwind.css" />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <style>
+        #print {
+            width: 210mm;
+            height: 297mm;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+    </style>
+    <script>
+      // Toggle mobile menu
+      function toggleMobileMenu() {
+        const mobileMenu = document.getElementById("mobile-menu");
+        mobileMenu.classList.toggle("hidden");
+      }
+
+      // Toggle user menu
+      function toggleUserMenu() {
+        const userMenu = document.getElementById("user-menu");
+        userMenu.classList.toggle("hidden");
+      }
+    </script>
+  </head>
+  <body class="bg-gray-100">
+    <nav class="bg-white">
+      <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+        <div class="relative flex h-16 items-center justify-between">
+          <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+            <!-- Mobile menu button-->
+            <button type="button" class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false" >
+              <span class="absolute -inset-0.5"></span>
+              <span class="sr-only">Open main menu</span>
+              <!-- Icon when menu is closed -->
+              <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+              <!-- Icon when menu is open -->
+              <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+            <div class="flex shrink-0 items-center">
+              <img class="h-10 w-auto cursor-pointer" src="./media/doctor.png" alt="Narayan Seva Sadan" />
+            </div>
+            <div class="hidden sm:ml-6 sm:block">
+              <div class="flex space-x-4">
+                <!-- New menu items -->
+                <a href="index.html" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Add Patient</a>
+                <a href="patient_list.html" class="rounded-md px-3 py-2 text-sm font-medium bg-gray-900 text-gray-300 hover:bg-gray-700 hover:text-white">Patients List</a>
+                <a href="complaints.html" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Add Complaint</a>
+                <a href="services.html" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Services</a>
+                <a href="add_billings.html" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Billing</a>
+                <a href="billing_details.html" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Billing Details</a>
+              </div>
+            </div>
+          </div>
+          <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            <a id="logout_button" class="relative rounded-lg bg-red-900 p-3 text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" onclick="toggleUserMenu()">Sign Out</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile menu, show/hide based on menu state -->
+      <div class="sm:hidden hidden" id="mobile-menu">
+        <div class="space-y-1 px-2 pb-3 pt-2">
+          <a href="index.html" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Add Patient</a>
+          <a href="patient_list.html" class="block rounded-md px-3 py-2 text-base font-medium bg-gray-900 text-gray-300 hover:bg-gray-700 hover:text-white">Patients List</a>
+          <a href="complaints.html" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Add Complaint</a>
+          <a href="services.html" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Services</a>
+          <a href="add_billings.html" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Billing</a>
+          <a href="billing_details.html" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Billing Details</a>
+        </div>
+      </div>
+    </nav>
+    <!-- service List Section -->
+    <div class="container mx-auto my-4 p-6 bg-white shadow-lg rounded-lg">
+      <h2 class="text-3xl font-bold text-center mb-6 text-indigo-700">Patient List</h2>
+
+      <!-- Search Bar -->
+      <div class="mb-4">
+        <form id="search-form" class="flex items-center">
+          <input type="text" id="search" name="search" placeholder="Search patients by name..." class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600" />
+          <input type="date" id="start_date" name="start_date" class="ml-2 w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600" />
+          <input type="date" id="end_date" name="end_date" class="ml-2 w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600" />
+          <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded-md ml-2">Search</button>
+        </form>
+      </div>
+
+      <!-- Patient List Table -->
+      <div class="overflow-x-auto">
+        <table class="min-w-full table-auto border-collapse" id="patient-table">
+          <thead>
+            <tr>
+              <th class="px-4 py-2 text-left border-b">Reg No.</th>
+              <th class="px-4 py-2 text-center border-b">Name</th>
+              <th class="px-4 py-2 text-center border-b">Age</th>
+              <th class="px-4 py-2 text-center border-b">Gender</th>
+              <th class="px-4 py-2 text-center border-b">Mobile Number</th>
+              <th class="px-4 py-2 text-center border-b">Time</th>
+              <th class="px-4 py-2 text-right border-b">Action</th>
+            </tr>
+          </thead>
+          <tbody id="patient-list">
+            <!-- Patient rows will be added here dynamically -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="mt-6" id="pagination">
+        <!-- Pagination controls will be added dynamically -->
+      </div>
+    </div>
+
+    <!-- Edit Patient Modal -->
+    <div id="edit-patient-modal" class="modal fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50  hidden">
+      <div class="modal-content bg-white p-6 rounded-lg w-full min-w-[950px] m-4">
+        <h2 class="text-2xl font-bold mb-4" id="modalTitle">Edit Patient</h2>
+
+        <form id="edit-patient-form">
+          <!-- Patient Details Section -->
+          <div class="space-y-2">
+            <h3 class="text-xl font-semibold text-gray-800">Patient Details</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div>
+                <input type="text" id="edit-name" name="name" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" placeholder="Patient Name" required />
+              </div>
+
+              <div style="display: none">
+                <input type="text" id="edit-id" name="id" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" placeholder="Patient Id" required />
+              </div>
+
+              <div>
+                <input type="text" id="edit-age" name="age" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" placeholder="Age" required />
+              </div>
+
+              <div>
+                <select type="text" id="edit-gender" name="gender" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" required>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="TransGender">Transgender</option>
+                </select>
+              </div>
+
+              <div>
+                <input type="text" id="edit-guardian_name" name="guardian_name" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" placeholder="Guardian Name" />
+              </div>
+
+              <div>
+                <input type="text" id="edit-mobile_no" name="mobile_no" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" required placeholder="Mobile Number" />
+              </div>
+
+              <div>
+                <input id="edit-address" name="address" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" placeholder="Address" required />
+              </div>
+
+              <!-- Complaints Section -->
+              <div class="relative">
+                <input type="text" id="searchInput" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" placeholder="Complaints" />
+
+                <!-- Dropdown Menu with Checkboxes -->
+                <div id="dropdownMenu" class="absolute hidden z-10 bg-white shadow-lg rounded-md w-64 mt-2 py-2 px-4 space-y-2 border border-gray-300">
+                  <div id="checkboxList"></div>
+                </div>
+              </div>
+              <div>
+                <input type="text" id="edit-from_date" name="from_date" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" placeholder="From" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Vitals and Observations Section -->
+          <div class="space-y-2">
+            <h3 class="text-xl font-semibold text-gray-800">Vitals and Observations</h3>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-3">
+              <div>
+                <label for="weight" class="block text-sm font-medium text-gray-700">Weight (Kg)</label>
+                <input type="text" id="edit-weight" name="weight" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" />
+              </div>
+
+              <div>
+                <label for="fever" class="block text-sm font-medium text-gray-700">Temperature (°F)</label>
+                <input type="number" step="0.1" id="edit-fever" name="fever" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" />
+              </div>
+
+              <div>
+                <label for="pulse" class="block text-sm font-medium text-gray-700">Pulse Rate (/m)</label>
+                <input type="text" id="edit-pulse" name="pulse" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" />
+              </div>
+
+              <div>
+                <label for="bp" class="block text-sm font-medium text-gray-700">Blood Pressure (mm/Hg)</label>
+                <input type="text" id="edit-bp" name="bp" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" />
+              </div>
+
+              <div>
+                <label for="spo2" class="block text-sm font-medium text-gray-700">SPo2 (%)</label>
+                <input type="number" id="edit-spo2" name="spo2" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Physical Examination Section -->
+          <div class="space-y-2">
+            <h3 class="text-xl font-semibold text-gray-800">Physical Examination</h3>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-3">
+              <div>
+                <label for="on_e" class="block text-sm font-medium text-gray-700">On/E</label>
+                <input type="text" id="edit-on_e" name="on_e" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" />
+              </div>
+
+              <div>
+                <label for="cvs" class="block text-sm font-medium text-gray-700">CVS</label>
+                <input type="text" id="edit-cvs" name="cvs" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" />
+              </div>
+
+              <div>
+                <label for="chest" class="block text-sm font-medium text-gray-700">CHEST</label>
+                <input type="text" id="edit-chest" name="chest" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" />
+              </div>
+
+              <div>
+                <label for="cns" class="block text-sm font-medium text-gray-700">CNS</label>
+                <input type="text" id="edit-cns" name="cns" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" />
+              </div>
+
+              <div>
+                <label for="pa" class="block text-sm font-medium text-gray-700">P/A</label>
+                <input type="text" id="edit-pa" name="pa" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Complaints Section -->
+          <div class="grid grid-cols-1 gap-6">
+            <!-- Medical Details Section -->
+            <div class="space-y-2">
+              <h3 class="text-2xl font-semibold text-gray-800">Medical Details</h3>
+              <div>
+                <label for="investigation" class="block text-sm font-medium text-gray-700">Investigation</label>
+                <textarea id="edit-investigation" name="investigation" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" rows="2"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-end">
+            <button type="button" id="cancelBtn" class="bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-600 mr-2">Cancel</button>
+            <button type="submit" id="saveBtn" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="view-patient-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+      <div class="bg-white p-6 rounded-lg">
+        <div class="flex justify-between items-center">
+            <h2 class="text-xl font-bold mb-4">Patient Details</h2>
+            <div>
+                <button id="print-model" class="bg-green-500 text-white py-1 px-4 rounded-md hover:bg-green-600">Print</button>
+                <button id="close-view-modal" class="bg-red-500 text-white py-1 px-4 rounded-md hover:bg-red-600">X</button>
+            </div>
+
+        </div>
+        <div id="patient-details" class="overflow-scroll" style="height: 80vh;">
+            <div class="mx-auto my-10 bg-white shadow-lg border h-full"  id="print" style="height: 297mm;">
+                <!-- Header Section -->
+                <div class="flex justify-between items-center bg-green-200 p-4 opacity-0" id="header">
+                  <div class="text-left text-sm text-gray-800 w-[40%] border-4 p-2 border-red-700 rounded-lg" style="width: 40%;">
+                    <p class="font-bold text-2xl text-red-700" style="font-size: 2.1rem">नारायण सेवा सदन</p>
+                    <p>(ए यूनिट ऑफ डॉ. एस. एन. यादव मेमोरियल)</p>
+                    <p>गौसाघाट, पुल से पश्चिम, दरभंगा (बिहार)</p>
+                    <p>9472483157, 7367913108</p>
+                    <p>kamleshkumar1909@gmail.com</p>
+                  </div>
+                  <div class="text-center">
+                    <img src="./media/doctor.png" class="w-24" />
+                  </div>
+                  <div class="text-left text-sm text-gray-800 w-[40%]" style="width: 40%;">
+                    <p class="font-bold text-2xl text-red-700">Dr. Kamlesh Kumar Yadav</p>
+                    <p class="font-bold text-2xl text-red-700">डॉ. कमलेश कुमार यादव</p>
+                    <p>एम.बी.बी.एस (डीएमसीएच), एफ.सी.जी.पी (चेन्नई),</p>
+                    <p>सी.सी.आई.पी (नई दिल्ली)</p>
+                    <p>पंजीकरण संख्या: 38987, बी.सी.एम.आर (पटना)</p>
+                    <p>चिकित्सा पदाधिकारी (डी.एम.सी.एच दरभंगा )</p>
+                  </div>
+                </div>
+            
+                <!-- Patient Details Section -->
+                <div class="flex justify-between items-start " style="height: 227mm;">
+                  <div class="text-gray-800 text-sm w-[25%] pt-2 h-full p-4 border-r-4 border-gray-900" style="width: 25%;"> 
+                    <p class="flex"><strong>Date: </strong> <span id="patient-date"></span></p>
+            
+                    <p class="flex"><strong>Reg No: </strong> <span id="patient-reg_no"></span></p>
+            
+                    <p class="flex"><strong>Case No: </strong> <span id="patient-case_no"></span></p>
+            
+                    <p class="flex">
+                      <strong>Patient's Name: </strong><br />
+                      <span id="patient-name"></span>
+                    </p>
+            
+                    <p class="flex"><strong>Age: </strong> <span id="patient-age"></span> / <span id="patient-gender"></span></p>
+            
+                    <p class="flex">
+                      <strong>Address: </strong><br />
+                      <span id="patient-address"></span>
+                    </p>
+            
+                    <p class="flex">
+                      <strong>Mobile No: </strong><br />
+                      <span id="patient-mobile"></span>
+                    </p>
+            
+                    <p class="flex"><strong>Valid Upto: </strong> <span id="patient-valid_upto"></span></p>
+                    <br />
+                    <p class=""><strong>C/o :- </strong></p>
+                    <p class="text-justify h-[250px]" style="height: 250px;"><span id="patient-complaints"></span> &nbsp; <span id="patient-from_date"></span></p>
+            
+                    <p class="h-[320px]" style="height: 320px;"><strong>Investigation </strong> :- <span id="patient-investigation"></span></p>
+                  </div>
+            
+                  <div class="w-[75%] h-full" style="width: 75%;">
+                    <div class="text-left text-sm text-gray-800 flex flex-wrap gap-2 border-b-4 pl-4 p-2 border-gray-900">
+                      <div class="w-[48%]" style="width: 48%;">
+                        <p class="flex" ><strong>Weight:</strong> <span id="patient-weight"></span></p>
+                        <p class="flex" ><strong>Fever:</strong> <span id="patient-fever"></span></p>
+                        <p class="flex" ><strong>Pulse:</strong> <span id="patient-pulse"></span></p>
+                        <p class="flex" ><strong>B.P.:</strong> <span id="patient-bp"></span></p>
+                        <p class="flex" ><strong>SPo2:</strong> <span id="patient-spo2"></span></p>
+                      </div>
+                      <div>
+                        <p><strong>On/E:</strong> P IC CL Cy LA</p>
+                        <p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CVS:</strong> <span id="patient-cvs"></span></p>
+                        <p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CHEST:</strong> <span id="patient-chest"></span></p>
+                        <p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CNS:</strong> <span id="patient-cns"></span></p>
+                        <p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; P/A:</strong> <span id="patient-pa"></span></p>
+                      </div>
+                    </div>
+                    <div class="h-[60vh] flex justify-center items-center opacity-50" style="height: 60vh;">
+                      <!-- <img src="./media/doctor.png" class="w-[50%]" /> -->
+                    </div>
+                  </div>
+                </div>
+            
+                <!-- Footer Section -->
+                <div class="relative mx-auto p-2 bg-yellow-200 text-xs text-center text-gray-800 opacity-0" id="footer">
+                  <!-- Top Border Text -->
+                  <p class="absolute left-1/2 transform -translate-x-1/2 bg-red-600 text-white rounded-full px-3 py-1 font-bold text-xs" style="margin-top: -18px;">Not Valid for Medical Legal Purpose</p>
+            
+                  <!-- List Section -->
+                  <ul class="flex flex-wrap justify-center mt-2">
+                    <li class="text-red-600 font-semibold p-1">★ दवा खरीदकर अवश्य दिखा लें।</li>
+                    <li class="text-green-600 font-semibold p-1">★ पुनः 15 दिन पर फीस लगेगा।</li>
+                    <li class="text-blue-600 font-semibold p-1">★ आवश्यक सुधार नहीं होने पर दूसरे चिकित्सक की सलाह ले सकते हैं।</li>
+                    <li class="text-yellow-600 font-semibold p-1">★ ऑक्सीजन, नेबुलाइजेशन, ECG की सुविधा उपलब्ध है।</li>
+                    <li class="text-purple-600 font-semibold p-1">★ अल्ट्रासाउंड की सुविधा उपलब्ध है।</li>
+                    <li class="text-indigo-600 font-semibold p-1">★ पुराना पर्ची देखने का समय दिन के 02 बजे तक।</li>
+                  </ul>
+                </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

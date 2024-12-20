@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Narayan Seva Sadan</title>
+    <link rel="stylesheet" href="./styles/tailwind.css" />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <style>
+      #print {
+        width: 210mm;
+        height: 297mm;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+    <script>
+      // Toggle mobile menu
+      function toggleMobileMenu() {
+        const mobileMenu = document.getElementById("mobile-menu");
+        mobileMenu.classList.toggle("hidden");
+      }
+
+      // Toggle user menu
+      function toggleUserMenu() {
+        const userMenu = document.getElementById("user-menu");
+        userMenu.classList.toggle("hidden");
+      }
+    </script>
+  </head>
+  <body class="bg-gray-100">
+    <nav class="bg-white">
+      <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+        <div class="relative flex h-16 items-center justify-between">
+          <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+            <!-- Mobile menu button-->
+            <button type="button" class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+              <span class="absolute -inset-0.5"></span>
+              <span class="sr-only">Open main menu</span>
+              <!-- Icon when menu is closed -->
+              <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+              <!-- Icon when menu is open -->
+              <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+            <div class="flex shrink-0 items-center">
+              <img class="h-10 w-auto cursor-pointer" src="./media/doctor.png" alt="Narayan Seva Sadan" />
+            </div>
+            <div class="hidden sm:ml-6 sm:block">
+              <div class="flex space-x-4">
+                <!-- New menu items -->
+                <a href="index.html" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Add Patient</a>
+                <a href="patient_list.html" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Patients List</a>
+                <a href="complaints.html" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Add Complaint</a>
+                <a href="services.html" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Services</a>
+                <a href="add_billings.html" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Billing</a>
+                <a href="billing_details.html" class="rounded-md px-3 py-2 text-sm font-medium bg-gray-900 text-gray-300 hover:bg-gray-700 hover:text-white">Billing Details</a>
+              </div>
+            </div>
+          </div>
+          <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            <a id="logout_button" class="relative rounded-lg bg-red-900 p-3 text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" onclick="toggleUserMenu()">Sign Out</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile menu, show/hide based on menu state -->
+      <div class="sm:hidden hidden" id="mobile-menu">
+        <div class="space-y-1 px-2 pb-3 pt-2">
+          <a href="index.html" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Add Patient</a>
+          <a href="patient_list.html" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Patients List</a>
+          <a href="complaints.html" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Add Complaint</a>
+          <a href="services.html" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Services</a>
+          <a href="add_billings.html" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Billing</a>
+          <a href="billing_details.html" class="block rounded-md px-3 py-2 text-base font-medium bg-gray-900 text-gray-300 hover:bg-gray-700 hover:text-white">Billing Details</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mx-auto my-4 p-6 bg-white shadow-lg rounded-lg">
+      <div class="flex justify-between">
+        <h2 class="text-xl font-bold mb-4">Invoices</h2>
+        <h2 class="text-xl font-bold mb-4">₹<span id="totalAmount"></span></h2>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="mb-4">
+        <form id="searchForm" class="flex items-center">
+          <input type="text" id="searchQuery" placeholder="Search patients by name..." class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600" />
+          <input type="date" id="startDate" class="ml-2 w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600" />
+          <input type="date" id="endDate" class="ml-2 w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600" />
+          <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded-md ml-2">Search</button>
+        </form>
+      </div>
+
+      <!-- Invoice List -->
+      <div id="invoicesContainer"></div>
+
+      <!-- Pagination -->
+      <div id="paginationContainer" class="mt-6">
+        <div class="flex justify-between">
+          <span id="paginationInfo" class="text-sm text-gray-700"></span>
+          <div class="flex space-x-2" id="paginationButtons"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Patient Modal -->
+    <div id="edit-invoice-modal" class="modal fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden">
+      <div class="modal-content bg-white p-6 rounded-lg w-full min-w-[950px] m-8">
+        <h2 class="text-2xl font-bold mb-4" id="modalTitle">Edit Patient</h2>
+
+        <form id="edit-serviceForm">
+          <div>
+            <input type="number" id="edit-reg_no" name="reg_no" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" placeholder="Patient Reg No." required />
+            <input type="number" id="edit-id" name="id" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" placeholder="Patient id" required style="display: none" />
+          </div>
+
+          <div id="serviceContainer" class="space-y-4">
+            <!-- Service selection template -->
+            <div class="service-item flex items-center space-x-4">
+              <select class="service-select border p-2 rounded w-full" onchange="updateTotal(this)">
+                <option value="">Select Service</option>
+                <!-- Replace with your services -->
+              </select>
+              <input type="number" min="1" value="1" class="quantity-input border p-2 rounded w-20" placeholder="Qty" oninput="updateTotal(this)" />
+              <span class="service-price text-gray-600">Price: ₹0</span>
+              <span class="total-price text-green-600 ml-4">Total: ₹0</span>
+              <button type="button" onclick="removeService(this)" class="text-red-500 font-bold">x</button>
+            </div>
+          </div>
+
+          <button type="button" id="addServiceButton" onclick="addService()" class="bg-blue-500 text-white px-4 py-2 rounded mt-4">+ Add Service</button>
+
+          <div class="mt-4 text-xl font-bold">
+            <span>Total Price: </span>
+            <span id="edit-totalAmount" class="text-green-600">₹0</span>
+          </div>
+
+          <span id="close-edit-modal" class="bg-red-500 text-white px-4 py-2 rounded mt-4 text-right cursor-pointer">Close</span>
+          <button type="submit" id="close-invoice-modal" class="bg-green-500 text-white px-4 py-2 rounded mt-4 text-right">Submit</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="view-invoice-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+      <div class="bg-white p-6 rounded-lg">
+        <div class="flex justify-between items-center">
+          <h2 class="text-xl font-bold mb-4">Patient Details</h2>
+          <div>
+            <button id="print-invoice-model" class="bg-green-500 text-white py-1 px-4 rounded-md hover:bg-green-600">Print</button>
+            <button id="close-invoice-modal" class="bg-red-500 text-white py-1 px-4 rounded-md hover:bg-red-600">X</button>
+          </div>
+        </div>
+        <div id="patient-details" class="overflow-scroll" style="height: 80vh">
+          <div class="mx-auto my-10 bg-white shadow-lg border h-full" id="print" style="height: 297mm">
+            <!-- Header Section -->
+
+            <!-- Patient Details Section -->
+            <div class="flex w-full justify-between items-start h-[287mm]" style="height: 287mm">
+              <div class="invoice m-6 p-4 bg-gray-100 rounded-lg w-full">
+                <div class="flex justify-between">
+                  <h3 class="text-lg font-semibold mb-2 flex" id="invoice-patient_name"></h3>
+                  <!-- <h3 class="text-lg font-semibold mb-2">Invoice {{ invoice.id }}</h3> -->
+                  <p><strong></strong> <span id="invoice-date"></span></p>
+                </div>
+                <p class="text-sm font-semibold mb-2">Age : <span id="invoice-age"></span> / <span id="invoice-gender"></span></p>
+                <p class="text-sm font-semibold mb-2" id="invoice-guardian_name"></p>
+                <p class="text-sm font-semibold mb-2">Mobile No. : <span id="invoice-mobile_no"></span></p>
+                <p class="text-sm font-semibold mb-2">Address : <span id="invoice-address"></span></p>
+                <!-- <p><strong>Status:</strong> {{ invoice.status }}</p> -->
+                <!-- <p><strong>Total Amount:</strong> ₹{{ invoice.total_amount }}</p> -->
+
+                <h4 class="mt-4 font-semibold">Items</h4>
+                <table class="w-full text-left border mt-2">
+                  <thead>
+                    <tr>
+                      <th class="p-2 border">Service</th>
+                      <th class="p-2 border">Quantity</th>
+                      <th class="p-2 border">Price</th>
+                      <th class="p-2 border">Total Price</th>
+                    </tr>
+                  </thead>
+                  <tbody id="modal-items-body"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let totalAmount = 0;
+
+      // Add a new service selection row
+      function addService() {
+        const serviceContainer = document.getElementById("serviceContainer");
+
+        const newServiceItem = document.createElement("div");
+        newServiceItem.className = "service-item flex items-center space-x-4";
+        newServiceItem.innerHTML = `
+              <select class="service-select border p-2 rounded w-full" onchange="updateTotal(this)">
+                <option value="">Select Service</option>
+              </select>
+              <input type="number" min="1" value="1" class="quantity-input border p-2 rounded w-20" placeholder="Qty" oninput="updateTotal(this)" />
+              <span class="service-price text-gray-600">Price: ₹0</span>
+              <span class="total-price text-green-600 ml-4">Total: ₹0</span>
+              <button type="button" onclick="removeService(this)" class="text-red-500 font-bold">x</button>
+            `;
+
+        serviceContainer.appendChild(newServiceItem);
+      }
+
+      // Remove a service selection row
+      function removeService(button) {
+        const serviceItem = button.parentNode;
+        const totalPrice = parseFloat(serviceItem.querySelector(".total-price").textContent.replace("Total: ₹", ""));
+
+        totalAmount -= totalPrice; // Subtract the total of the removed service from totalAmount
+        document.getElementById("edit-totalAmount").textContent = `₹${totalAmount.toFixed(2)}`;
+
+        serviceItem.remove();
+      }
+
+      // Update price and total when quantity or service selection changes
+      function updateTotal(element) {
+        const serviceItem = element.closest(".service-item") || element.parentNode; // Ensure we're targeting the parent .service-item
+
+        if (!serviceItem) return; // If serviceItem is undefined, exit
+
+        const selectElement = serviceItem.querySelector(".service-select");
+        const quantityInput = serviceItem.querySelector(".quantity-input");
+        const priceSpan = serviceItem.querySelector(".service-price");
+        const totalPriceSpan = serviceItem.querySelector(".total-price");
+
+        const price = parseFloat(selectElement.options[selectElement.selectedIndex].getAttribute("data-price")) || 0;
+        const quantity = parseInt(quantityInput.value) || 1;
+
+        // Calculate and update the displayed price and total price for the current service
+        priceSpan.textContent = `Price: ₹${price}`;
+        totalPriceSpan.textContent = `Total: ₹${(price * quantity).toFixed(2)}`;
+
+        // Update the overall total price
+        calculateTotal();
+      }
+
+      // Calculate total price of all services
+      function calculateTotal() {
+        totalAmount = 0;
+        document.querySelectorAll(".service-item").forEach(item => {
+          const totalPrice = parseFloat(item.querySelector(".total-price").textContent.replace("Total: ₹", "")) || 0;
+          totalAmount += totalPrice;
+        });
+
+        document.getElementById("edit-totalAmount").textContent = `₹${totalAmount.toFixed(2)}`;
+      }
+    </script>
+  </body>
+</html>

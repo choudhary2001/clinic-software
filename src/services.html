@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Narayan Seva Sadan</title>
+    <link rel="stylesheet" href="./styles/tailwind.css" />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <script>
+      // Toggle mobile menu
+      function toggleMobileMenu() {
+        const mobileMenu = document.getElementById("mobile-menu");
+        mobileMenu.classList.toggle("hidden");
+      }
+
+      // Toggle user menu
+      function toggleUserMenu() {
+        const userMenu = document.getElementById("user-menu");
+        userMenu.classList.toggle("hidden");
+      }
+    </script>
+  </head>
+  <body class="bg-gray-100">
+    <nav class="bg-white">
+      <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+        <div class="relative flex h-16 items-center justify-between">
+          <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+            <!-- Mobile menu button-->
+            <button type="button" class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+              <span class="absolute -inset-0.5"></span>
+              <span class="sr-only">Open main menu</span>
+              <!-- Icon when menu is closed -->
+              <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+              <!-- Icon when menu is open -->
+              <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+            <div class="flex shrink-0 items-center">
+              <img class="h-10 w-auto cursor-pointer" src="./media/doctor.png" alt="Narayan Seva Sadan" />
+            </div>
+            <div class="hidden sm:ml-6 sm:block">
+              <div class="flex space-x-4">
+                <!-- New menu items -->
+                <a href="index.html" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Add Patient</a>
+                <a href="patient_list.html" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Patients List</a>
+                <a href="complaints.html" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Add Complaint</a>
+                <a href="services.html" class="rounded-md px-3 py-2 text-sm font-medium bg-gray-900 text-gray-300 hover:bg-gray-700 hover:text-white">Services</a>
+                <a href="add_billings.html" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Billing</a>
+                <a href="billing_details.html" class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Billing Details</a>
+              </div>
+            </div>
+          </div>
+          <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            <a id="logout_button" class="relative rounded-lg bg-red-900 p-3 text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" onclick="toggleUserMenu()">Sign Out</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile menu, show/hide based on menu state -->
+      <div class="sm:hidden hidden" id="mobile-menu">
+        <div class="space-y-1 px-2 pb-3 pt-2">
+          <a href="index.html" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Add Patient</a>
+          <a href="patient_list.html" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Patients List</a>
+          <a href="complaints.html" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Add Complaint</a>
+          <a href="services.html" class="block rounded-md px-3 py-2 text-base font-medium bg-gray-900 text-gray-300 hover:bg-gray-700 hover:text-white">Services</a>
+          <a href="add_billings.html" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Billing</a>
+          <a href="billing_details.html" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-700 hover:text-white">Billing Details</a>
+        </div>
+      </div>
+    </nav>
+    <!-- service List Section -->
+    <div class="container mx-auto mt-2 p-5">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold">Services</h2>
+      </div>
+      <div class="flex justify-between items-center mb-4">
+        <!-- Search Bar -->
+        <div>
+          <input type="text" id="searchInput" class="py-2 px-4 rounded-md border" placeholder="Search services..." />
+        </div>
+        <button id="addServiceBtn" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700">Add Service</button>
+      </div>
+
+      <!-- service List -->
+      <div class="bg-white shadow-md rounded-lg">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead>
+            <tr>
+              <th class="px-4 py-2 text-left">Service</th>
+              <th class="px-4 py-2 text-center">Price</th>
+              <th class="px-4 py-2 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200" id="serviceList">
+            <!-- List of services will be rendered dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Add/Edit Service Modal -->
+    <div id="serviceModal" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden">
+      <div class="bg-white p-6 rounded-lg w-1/3 min-w-[350px]">
+        <h2 class="text-2xl font-bold mb-4" id="modalTitle">Add Service</h2>
+        <form id="serviceForm">
+          <div class="mb-4">
+            <label for="serviceDescription" class="block text-sm font-medium text-gray-700"> Service </label>
+            <input id="serviceDescription" type="text" class="mt-5 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6 p-2" placeholder="Enter service" />
+          </div>
+          <div class="mb-4">
+            <label for="servicePrice" class="block text-sm font-medium text-gray-700"> Price </label>
+            <input id="servicePrice" type="number" class="mt-5 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6 p-2" placeholder="Enter price" />
+          </div>
+          <div class="flex justify-end">
+            <button type="button" id="cancelBtn" class="bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-600 mr-2">Cancel</button>
+            <button type="submit" id="saveBtn" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
