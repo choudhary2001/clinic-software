@@ -92,11 +92,11 @@
             </div>
 
             <div>
-              <input type="text" id="age" name="age" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" placeholder="Age" required />
+              <input type="text" id="age" name="age" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" placeholder="Age"  />
             </div>
 
             <div>
-              <select type="text" id="gender" name="gender" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" required>
+              <select type="text" id="gender" name="gender" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" >
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="TransGender">Transgender</option>
@@ -108,11 +108,11 @@
             </div>
 
             <div>
-              <input type="text" id="mobile_no" name="mobile_no" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" required placeholder="Mobile Number" />
+              <input type="text" id="mobile_no" name="mobile_no" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2"  placeholder="Mobile Number" />
             </div>
 
             <div>
-              <input id="address" name="address" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" placeholder="Address" required />
+              <input id="address" name="address" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" placeholder="Address"  />
             </div>
 
             <!-- Complaints Section -->
@@ -121,7 +121,7 @@
 
               <!-- Dropdown Menu with Checkboxes -->
               <div id="dropdownMenu" class="absolute hidden z-10 bg-white shadow-lg rounded-md w-64 mt-2 py-2 px-4 space-y-2 border border-gray-300">
-                <div id="checkboxList"></div>
+                <div id="pcheckboxList"></div>
               </div>
             </div>
             <div>
@@ -209,6 +209,117 @@
           <button type="submit" class="bg-indigo-600 text-white py-3 px-8 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">Submit</button>
         </div>
       </form>
+    </div>
+
+    <div id="view-patient-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+      <div class="bg-white p-6 rounded-lg">
+        <div class="flex justify-between items-center">
+            <h2 class="text-xl font-bold mb-4">Patient Details</h2>
+            <div>
+              <button id="print-model" class="bg-green-500 text-white py-1 px-4 rounded-md hover:bg-green-600">Print</button>
+              <button id="close-view-modal" class="bg-red-500 text-white py-1 px-4 rounded-md hover:bg-red-600">X</button>
+            </div>
+
+        </div>
+        <div id="patient-details" class="overflow-scroll" style="height: 80vh;">
+            <div class="mx-auto my-10 bg-white shadow-lg border h-full"  id="print" style="height: 290mm;">
+                <!-- Header Section -->
+                <div class="flex justify-between items-center bg-green-200 p-4 opacity-0" id="header" style="height: 38mm;">
+                  <div class="text-left text-sm text-gray-800 w-[40%] border-4 p-2 border-red-700 rounded-lg" style="width: 40%;">
+                    <p class="font-bold text-2xl text-red-700" style="font-size: 2.1rem">नारायण सेवा सदन</p>
+                    <p>(ए यूनिट ऑफ डॉ. एस. एन. यादव मेमोरियल)</p>
+                    <p>गौसाघाट, पुल से पश्चिम, दरभंगा (बिहार)</p>
+                    <p>9472483157, 7367913108</p>
+                    <p>kamleshkumar1909@gmail.com</p>
+                  </div>
+                  <div class="text-center">
+                    <img src="./media/doctor.png" class="w-24" />
+                  </div>
+                  <div class="text-left text-sm text-gray-800 w-[40%]" style="width: 40%;">
+                    <p class="font-bold text-2xl text-red-700">Dr. Kamlesh Kumar Yadav</p>
+                    <p class="font-bold text-2xl text-red-700">डॉ. कमलेश कुमार यादव</p>
+                    <p>एम.बी.बी.एस (डीएमसीएच), एफ.सी.जी.पी (चेन्नई),</p>
+                    <p>सी.सी.आई.पी (नई दिल्ली)</p>
+                    <p>पंजीकरण संख्या: 38987, बी.सी.एम.आर (पटना)</p>
+                    <p>चिकित्सा पदाधिकारी (डी.एम.सी.एच दरभंगा )</p>
+                  </div>
+                </div>
+            
+                <!-- Patient Details Section -->
+                <div class="flex justify-between items-start " style="height: 215mm;">
+                  <div class="text-gray-800 text-sm w-[25%] pt-2 h-full p-4 border-r-4 border-gray-900" style="width: 25%;"> 
+                    <p class="flex"><strong>Date: &nbsp;  </strong> <span id="patient-date"></span></p>
+            
+                    <p class="flex"><strong>Reg No:  &nbsp; </strong> <span id="patient-reg_no"></span></p>
+            
+                    <p class="flex"><strong>Case No:  &nbsp; </strong> <span id="patient-case_no"></span></p>
+            
+                    <p >
+                      <strong>Patient's Name:  &nbsp; </strong><br />
+                      <span id="patient-name"></span>
+                    </p>
+            
+                    <p class="flex"><strong>Age:  &nbsp; </strong> <span id="patient-age"></span> / <span id="patient-gender"></span></p>
+            
+                    <p >
+                      <strong>Address: </strong><br />
+                      <span id="patient-address"></span>
+                    </p>
+            
+                    <p >
+                      <strong>Mobile No: </strong><br />
+                      <span id="patient-mobile"></span>
+                    </p>
+            
+                    <p ><strong>Valid Upto:  &nbsp; </strong> 
+                      <br/><span id="patient-valid_upto"></span></p>
+                    <br />
+                    <p class=""><strong>C/o :- </strong></p>
+                    <p class="text-justify h-[250px]" style="height: 250px;"><span id="patient-complaints"></span> &nbsp; <span id="patient-from_date"></span></p>
+            
+                    <p class="h-[320px]" style="height: 320px;"><strong>Investigation </strong> :- <span id="patient-investigation"></span></p>
+                  </div>
+            
+                  <div class="w-[75%] h-full" style="width: 75%;">
+                    <div class="text-left text-sm text-gray-800 flex flex-wrap gap-2 border-b-4 pl-4 p-2 border-gray-900">
+                      <div class="w-[48%]" style="width: 48%;">
+                        <p class="flex" ><strong>Weight:  &nbsp; </strong> <span id="patient-weight"></span></p>
+                        <p class="flex" ><strong>Fever:  &nbsp; </strong> <span id="patient-fever"></span></p>
+                        <p class="flex" ><strong>Pulse:  &nbsp; </strong> <span id="patient-pulse"></span></p>
+                        <p class="flex" ><strong>B.P.:  &nbsp; </strong> <span id="patient-bp"></span></p>
+                        <p class="flex" ><strong>SPo2:  &nbsp; </strong> <span id="patient-spo2"></span></p>
+                      </div>
+                      <div>
+                        <p><strong>On/E:</strong> P IC CL Cy LA</p>
+                        <p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CVS:  &nbsp; </strong> <span id="patient-cvs"></span></p>
+                        <p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CHEST:  &nbsp; </strong> <span id="patient-chest"></span></p>
+                        <p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CNS:  &nbsp; </strong> <span id="patient-cns"></span></p>
+                        <p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; P/A:  &nbsp; </strong> <span id="patient-pa"></span></p>
+                      </div>
+                    </div>
+                    <div class="h-[60vh] flex justify-center items-center opacity-50" style="height: 60vh;">
+                      <!-- <img src="./media/doctor.png" class="w-[50%]" /> -->
+                    </div>
+                  </div>
+                </div>
+            
+                <!-- Footer Section -->
+                <div class="relative mx-auto p-2 bg-yellow-200 text-xs text-center text-gray-800 opacity-0" id="footer" style="height:0; display: none;">
+                  <!-- Top Border Text -->
+                  <p class="absolute left-1/2 transform -translate-x-1/2 bg-red-600 text-white rounded-full px-3 py-1 font-bold text-xs" style="margin-top: -18px;">Not Valid for Medical Legal Purpose</p>
+            
+                  <!-- List Section -->
+                  <ul class="flex flex-wrap justify-center mt-2">
+                    <li class="text-red-600 font-semibold p-1">★ दवा खरीदकर अवश्य दिखा लें।</li>
+                    <li class="text-green-600 font-semibold p-1">★ पुनः 15 दिन पर फीस लगेगा।</li>
+                    <li class="text-blue-600 font-semibold p-1">★ आवश्यक सुधार नहीं होने पर दूसरे चिकित्सक की सलाह ले सकते हैं।</li>
+                    <li class="text-yellow-600 font-semibold p-1">★ ऑक्सीजन, नेबुलाइजेशन, ECG की सुविधा उपलब्ध है।</li>
+                    <li class="text-purple-600 font-semibold p-1">★ अल्ट्रासाउंड की सुविधा उपलब्ध है।</li>
+                    <li class="text-indigo-600 font-semibold p-1">★ पुराना पर्ची देखने का समय दिन के 02 बजे तक।</li>
+                  </ul>
+                </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>

@@ -1,8 +1,15 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+const { app } = require('electron');
 
-const dbPath = path.join(__dirname, 'billing.db'); // Database file path
-const db = new sqlite3.Database(dbPath);
+const dbPath = path.join(app.getPath('userData'), 'billing.db');
+const db = new sqlite3.Database(dbPath, (err) => {
+    if (err) {
+        console.error('Error opening database:', err.message);
+    } else {
+        console.log('Connected to the SQLite database');
+    }
+});
 
 // Create tables
 db.serialize(() => {
@@ -178,7 +185,7 @@ const updateService = (id, service, price) => {
 // Complaint-related database operations
 const getPatients = () => {
     return new Promise((resolve, reject) => {
-        db.all('SELECT * FROM PatientRecord', (err, rows) => {
+        db.all('SELECT * FROM PatientRecord ORDER BY DATE(date) DESC', (err, rows) => {
             if (err) {
                 console.error('Error fetching Patients:', err.message);
                 reject(err);
@@ -224,8 +231,8 @@ const generateRegNo = () => {
                 return;
             }
 
-            let latest_reg_no = row.latest_reg_no || 69997; // Default to 69997 if no records exist
-            let next_reg_no = Math.max(69998, latest_reg_no + 1);
+            let latest_reg_no = row.latest_reg_no || 71115; // Default to 69997 if no records exist
+            let next_reg_no = Math.max(71115, latest_reg_no + 1);
             resolve(next_reg_no);
         });
     });
@@ -304,7 +311,11 @@ const savePatientRecord = (formData, event) => {
                     });
 
                     // Send success response
-                    event.sender.send('save-patient-success', 'Patient record saved successfully!');
+                    // event.sender.send('save-patient-success', 'Patient record saved successfully!');
+                    event.sender.send('save-patient-success', {
+                        message: 'Patient record saved successfully!',
+                        patient_id: patientRecordId
+                    });
                 });
         })
         .catch(err => {

@@ -375,7 +375,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         // Handle complaints dropdown
         const searchInput = document.getElementById("searchInput");
         const dropdownMenu = document.getElementById("dropdownMenu");
-        const checkboxList = document.getElementById("checkboxList");
+        const checkboxList = document.getElementById("pcheckboxList");
 
         // Fetch complaints data
         const complaints = await ipcRenderer.invoke("fetch-complaints");
@@ -454,16 +454,89 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             ipcRenderer.send('save-patient-record', formData);
             console.log("Form submitted!");
-            window.location.reload();
+
+            // ✅ Clear the form fields after submission
+            document.getElementById("patient-form").reset();
+
+            // ✅ Uncheck all checkboxes (if any)
+            document.querySelectorAll('input[name="complaints"]:checked').forEach(input => {
+                input.checked = false;
+            });
+
+            // window.location.reload();
         });
 
-        ipcRenderer.on('save-patient-success', (event, message) => {
-            alert(message);  // Show success message
-            // Optionally, clear the form or redirect
+        ipcRenderer.on('save-patient-success', async (event, response) => {
+            console.log(response);
+            if (response.patient_id) {
+                // alert(`${response.message}\nPatient ID: ${response.patient_id}`); // Show success message with patient ID
+                console.log('Patient ID:', response.patient_id); // Log the patient ID
+                const patients = await ipcRenderer.invoke("get-all-patients");
+                const patient = patients.find(p => p.id === response.patient_id);
+                if (patient) {
+                    const rawDate = new Date(patient.date);
+                    const formattedDate = rawDate.toLocaleDateString('en-GB');
+                    // Fill the modal with patient data
+                    const vrawDate = new Date(patient.valid_upto);
+                    const vformattedDate = vrawDate.toLocaleDateString('en-GB');
+                    document.getElementById("patient-name").textContent = patient.name;
+                    document.getElementById("patient-age").textContent = patient.age;
+                    document.getElementById("patient-gender").textContent = patient.gender;
+                    document.getElementById("patient-mobile").textContent = patient.mobile_no;
+                    document.getElementById("patient-address").textContent = patient.address;
+                    document.getElementById("patient-reg_no").textContent = patient.reg_no;
+                    document.getElementById("patient-case_no").textContent = patient.case_no;
+                    document.getElementById("patient-date").textContent = formattedDate;
+                    document.getElementById("patient-valid_upto").textContent = vformattedDate;
+                    document.getElementById("patient-from_date").textContent = patient.from_date;
+                    if (patient.weight) {
+                        document.getElementById("patient-weight").textContent = `${patient.weight} Kg`;
+                    }
+                    if (patient.fever) {
+                        document.getElementById("patient-fever").textContent = `${patient.fever} °F`;
+                    }
+                    document.getElementById("patient-bp").textContent = patient.bp;
+                    if (patient.pulse) {
+                        document.getElementById("patient-pulse").textContent = `${patient.pulse}  /m`;
+                    }
+                    if (patient.spo2) {
+                        document.getElementById("patient-spo2").textContent = `${patient.spo2} %`;
+                    }
+                    document.getElementById("patient-cvs").textContent = patient.cvs;
+                    document.getElementById("patient-chest").textContent = patient.chest;
+                    document.getElementById("patient-cns").textContent = patient.cns;
+                    document.getElementById("patient-pa").textContent = patient.pa;
+                    document.getElementById("patient-investigation").textContent = patient.investigation;
+                    // document.getElementById("patient-complaints").textContent = patient.complaints;
+                    ipcRenderer.invoke('get-complaints', response.patient_id)
+                        .then(complaints => {
+                            console.log('Complaints for patient:', complaints);
+                            // Display complaints as comma-separated text
+                            const complaintsText = complaints.map(complaint => complaint.name).join(', ');
+                            document.getElementById("patient-complaints").textContent = complaintsText;
+                        })
+                        .catch(err => {
+                            console.error('Error fetching complaints:', err);
+                        });
+                    // Show the modal
+                    document.getElementById("view-patient-modal").classList.remove("hidden");
+                }
+            } else {
+                alert(response); // Fallback if only a message is received
+            }
+
         });
+
 
         ipcRenderer.on('save-patient-error', (event, errorMessage) => {
             alert('Error: ' + errorMessage);  // Show error message
+        });
+    }
+
+    // Close the modal
+    if (document.getElementById("close-view-modal")) {
+        document.getElementById("close-view-modal").addEventListener("click", function () {
+            document.getElementById("view-patient-modal").classList.add("hidden");
         });
     }
 
@@ -506,11 +579,17 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         renderPatients(filteredPatients);
     }
+    function sortPatientsByDate(patientList) {
+        return patientList.sort((a, b) => new Date(b.date) - new Date(a.date));
+    }
+
 
     function renderPatients(patientList) {
+        const sortedPatients = sortPatientsByDate(patientList);
+
         const startIndex = (currentPage - 1) * patientsPerPage;
         const endIndex = startIndex + patientsPerPage;
-        const paginatedPatients = patientList.slice(startIndex, endIndex);
+        const paginatedPatients = sortedPatients.slice(startIndex, endIndex);
 
         // Clear the existing table rows
         const patientListElement = document.getElementById("patient-list");
@@ -568,11 +647,15 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     }
 
-    // View patient details in the modal
+
     function viewPatientDetails(patientId) {
         const patient = patients.find(p => p.id === patientId);
         if (patient) {
             // Fill the modal with patient data
+            const rawDate = new Date(patient.date);
+            const formattedDate = rawDate.toLocaleDateString('en-GB');
+            const vrawDate = new Date(patient.valid_upto);
+            const vformattedDate = vrawDate.toLocaleDateString('en-GB');
             document.getElementById("patient-name").textContent = patient.name;
             document.getElementById("patient-age").textContent = patient.age;
             document.getElementById("patient-gender").textContent = patient.gender;
@@ -580,8 +663,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             document.getElementById("patient-address").textContent = patient.address;
             document.getElementById("patient-reg_no").textContent = patient.reg_no;
             document.getElementById("patient-case_no").textContent = patient.case_no;
-            document.getElementById("patient-date").textContent = patient.date;
-            document.getElementById("patient-valid_upto").textContent = patient.valid_upto;
+            document.getElementById("patient-date").textContent = formattedDate;
+            document.getElementById("patient-valid_upto").textContent = vformattedDate;
             document.getElementById("patient-from_date").textContent = patient.from_date;
             if (patient.weight) {
                 document.getElementById("patient-weight").textContent = `${patient.weight} Kg`;
@@ -600,14 +683,23 @@ document.addEventListener("DOMContentLoaded", async function () {
             document.getElementById("patient-chest").textContent = patient.chest;
             document.getElementById("patient-cns").textContent = patient.cns;
             document.getElementById("patient-pa").textContent = patient.pa;
+            document.getElementById("patient-investigation").textContent = patient.investigation;
             // document.getElementById("patient-complaints").textContent = patient.complaints;
-
+            ipcRenderer.invoke('get-complaints', patientId)
+                .then(complaints => {
+                    console.log('Complaints for patient:', complaints);
+                    // Display complaints as comma-separated text
+                    const complaintsText = complaints.map(complaint => complaint.name).join(', ');
+                    document.getElementById("patient-complaints").textContent = complaintsText;
+                })
+                .catch(err => {
+                    console.error('Error fetching complaints:', err);
+                });
             // Show the modal
             document.getElementById("view-patient-modal").classList.remove("hidden");
         }
     }
 
-    // Close the modal
     if (document.getElementById("close-view-modal")) {
         document.getElementById("close-view-modal").addEventListener("click", function () {
             document.getElementById("view-patient-modal").classList.add("hidden");
@@ -624,6 +716,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     // Refresh the patient list after deletion
                     const patientList = patients.filter(patient => patient.id !== patientId); // Remove deleted patient from list
                     renderPatients(patientList);
+                    window.location.reload();
                 } else {
                     alert("Failed to delete patient.");
                 }
@@ -792,10 +885,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
     }
 
-    // Close the modal
-    function closeModal() {
-        document.getElementById("edit-patient-modal").classList.add("hidden");
-    }
 
     // Handle form submission to update patient data
     if (document.getElementById("edit-patient-form")) {
@@ -950,12 +1039,16 @@ document.addEventListener("DOMContentLoaded", async function () {
             });
 
             console.log("Selected Services:", services);
-            const reg_no = document.getElementById("reg_no").value;
-            console.log(reg_no)
-            // Send data to the Electron main process
-            const data = ipcRenderer.invoke("create-service-order", services, reg_no);
-            console.log(data)
-            window.location.reload()
+            if (document.getElementById("reg_no")) {
+
+
+                const reg_no = document.getElementById("reg_no").value;
+                console.log(reg_no)
+                // Send data to the Electron main process
+                const data = ipcRenderer.invoke("create-service-order", services, reg_no);
+                console.log(data)
+                window.location.reload()
+            }
         });
     }
 

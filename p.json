@@ -1,0 +1,39 @@
+{
+    "name": "Narayan-Seva-Sadan",
+    "version": "1.0.0",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "electron .",
+        "build:css": "tailwindcss -i ./src/styles/tailwind.css -o ./public/styles.css",
+        "build": "electron-builder"
+    },
+    "build": {
+        "appId": "com.swastik.electron",
+        "productName": "Narayan Seva Sadan",
+        "win": {
+            "target": "nsis",
+            "icon": "src/media/doctor.ico"
+        },
+        "files": [
+            "build/**/*",
+            "dist/**/*",
+            "src/**/*",
+            "src/main.js",
+            "src/index.html"
+        ]
+    },
+    "keywords": [],
+    "author": "Shwastik",
+    "license": "ISC",
+    "description": "Clinic Software Application",
+    "dependencies": {
+        "autoprefixer": "^10.4.20",
+        "postcss": "^8.4.49",
+        "sqlite3": "^5.1.7",
+        "tailwindcss": "^3.4.17"
+    },
+    "devDependencies": {
+        "electron": "^33.2.1",
+        "electron-builder": "^25.1.8"
+    }
+}

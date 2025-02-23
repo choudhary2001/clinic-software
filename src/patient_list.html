@@ -143,11 +143,11 @@
               </div>
 
               <div>
-                <input type="text" id="edit-age" name="age" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" placeholder="Age" required />
+                <input type="text" id="edit-age" name="age" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" placeholder="Age"  />
               </div>
 
               <div>
-                <select type="text" id="edit-gender" name="gender" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" required>
+                <select type="text" id="edit-gender" name="gender" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" >
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                   <option value="TransGender">Transgender</option>
@@ -159,11 +159,11 @@
               </div>
 
               <div>
-                <input type="text" id="edit-mobile_no" name="mobile_no" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" required placeholder="Mobile Number" />
+                <input type="text" id="edit-mobile_no" name="mobile_no" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2"  placeholder="Mobile Number" />
               </div>
 
               <div>
-                <input id="edit-address" name="address" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" placeholder="Address" required />
+                <input id="edit-address" name="address" class="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 mb-2" placeholder="Address"  />
               </div>
 
               <!-- Complaints Section -->
@@ -274,9 +274,9 @@
 
         </div>
         <div id="patient-details" class="overflow-scroll" style="height: 80vh;">
-            <div class="mx-auto my-10 bg-white shadow-lg border h-full"  id="print" style="height: 297mm;">
+            <div class="mx-auto my-10 bg-white shadow-lg border h-full"  id="print" style="height: 290mm;">
                 <!-- Header Section -->
-                <div class="flex justify-between items-center bg-green-200 p-4 opacity-0" id="header">
+                <div class="flex justify-between items-center bg-green-200 p-4 opacity-0" id="header" style="height: 38mm;">
                   <div class="text-left text-sm text-gray-800 w-[40%] border-4 p-2 border-red-700 rounded-lg" style="width: 40%;">
                     <p class="font-bold text-2xl text-red-700" style="font-size: 2.1rem">नारायण सेवा सदन</p>
                     <p>(ए यूनिट ऑफ डॉ. एस. एन. यादव मेमोरियल)</p>
@@ -298,32 +298,33 @@
                 </div>
             
                 <!-- Patient Details Section -->
-                <div class="flex justify-between items-start " style="height: 227mm;">
+                <div class="flex justify-between items-start " style="height: 215mm;">
                   <div class="text-gray-800 text-sm w-[25%] pt-2 h-full p-4 border-r-4 border-gray-900" style="width: 25%;"> 
-                    <p class="flex"><strong>Date: </strong> <span id="patient-date"></span></p>
+                    <p class="flex"><strong>Date:  &nbsp; </strong> <span id="patient-date"></span></p>
             
-                    <p class="flex"><strong>Reg No: </strong> <span id="patient-reg_no"></span></p>
+                    <p class="flex"><strong>Reg No:  &nbsp; </strong> <span id="patient-reg_no"></span></p>
             
-                    <p class="flex"><strong>Case No: </strong> <span id="patient-case_no"></span></p>
+                    <p class="flex"><strong>Case No:  &nbsp; </strong> <span id="patient-case_no"></span></p>
             
-                    <p class="flex">
-                      <strong>Patient's Name: </strong><br />
+                    <p >
+                      <strong>Patient's Name:  &nbsp; </strong><br />
                       <span id="patient-name"></span>
                     </p>
             
                     <p class="flex"><strong>Age: </strong> <span id="patient-age"></span> / <span id="patient-gender"></span></p>
             
-                    <p class="flex">
-                      <strong>Address: </strong><br />
+                    <p>
+                      <strong>Address:  &nbsp; </strong><br />
                       <span id="patient-address"></span>
                     </p>
             
-                    <p class="flex">
-                      <strong>Mobile No: </strong><br />
+                    <p>
+                      <strong>Mobile No:  &nbsp; </strong><br />
                       <span id="patient-mobile"></span>
                     </p>
             
-                    <p class="flex"><strong>Valid Upto: </strong> <span id="patient-valid_upto"></span></p>
+                    <p ><strong>Valid Upto:  &nbsp; </strong> <br/>
+                      <span id="patient-valid_upto"></span></p>
                     <br />
                     <p class=""><strong>C/o :- </strong></p>
                     <p class="text-justify h-[250px]" style="height: 250px;"><span id="patient-complaints"></span> &nbsp; <span id="patient-from_date"></span></p>
@@ -334,18 +335,18 @@
                   <div class="w-[75%] h-full" style="width: 75%;">
                     <div class="text-left text-sm text-gray-800 flex flex-wrap gap-2 border-b-4 pl-4 p-2 border-gray-900">
                       <div class="w-[48%]" style="width: 48%;">
-                        <p class="flex" ><strong>Weight:</strong> <span id="patient-weight"></span></p>
-                        <p class="flex" ><strong>Fever:</strong> <span id="patient-fever"></span></p>
-                        <p class="flex" ><strong>Pulse:</strong> <span id="patient-pulse"></span></p>
-                        <p class="flex" ><strong>B.P.:</strong> <span id="patient-bp"></span></p>
-                        <p class="flex" ><strong>SPo2:</strong> <span id="patient-spo2"></span></p>
+                        <p class="flex" ><strong>Weight : &nbsp; </strong> <span id="patient-weight"></span></p>
+                        <p class="flex" ><strong>Fever: &nbsp; </strong> <span id="patient-fever"></span></p>
+                        <p class="flex" ><strong>Pulse: &nbsp; </strong> <span id="patient-pulse"></span></p>
+                        <p class="flex" ><strong>B.P.: &nbsp; </strong> <span id="patient-bp"></span></p>
+                        <p class="flex" ><strong>SPo2: &nbsp; </strong> <span id="patient-spo2"></span></p>
                       </div>
                       <div>
                         <p><strong>On/E:</strong> P IC CL Cy LA</p>
-                        <p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CVS:</strong> <span id="patient-cvs"></span></p>
-                        <p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CHEST:</strong> <span id="patient-chest"></span></p>
-                        <p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CNS:</strong> <span id="patient-cns"></span></p>
-                        <p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; P/A:</strong> <span id="patient-pa"></span></p>
+                        <p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CVS: &nbsp; </strong> <span id="patient-cvs"></span></p>
+                        <p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CHEST: &nbsp; </strong> <span id="patient-chest"></span></p>
+                        <p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CNS: &nbsp; </strong> <span id="patient-cns"></span></p>
+                        <p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; P/A: &nbsp; </strong> <span id="patient-pa"></span></p>
                       </div>
                     </div>
                     <div class="h-[60vh] flex justify-center items-center opacity-50" style="height: 60vh;">
@@ -355,7 +356,7 @@
                 </div>
             
                 <!-- Footer Section -->
-                <div class="relative mx-auto p-2 bg-yellow-200 text-xs text-center text-gray-800 opacity-0" id="footer">
+                <div class="relative mx-auto p-2 bg-yellow-200 text-xs text-center text-gray-800 opacity-0" id="footer" style="height:0;display: none;">
                   <!-- Top Border Text -->
                   <p class="absolute left-1/2 transform -translate-x-1/2 bg-red-600 text-white rounded-full px-3 py-1 font-bold text-xs" style="margin-top: -18px;">Not Valid for Medical Legal Purpose</p>
             

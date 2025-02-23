@@ -3,8 +3,7 @@ const path = require('path');
 const fs = require('fs');
 let win;
 
-const db = require('./db.js'); // Replace with the correct path
-
+const db = require(path.join(__dirname, 'db.js')); // Ensure correct path
 
 function createWindow() {
     win = new BrowserWindow({
@@ -17,13 +16,14 @@ function createWindow() {
     });
 
     const isLoggedIn = fs.existsSync(path.join(__dirname, 'session.json'));
-
+    win.setMenuBarVisibility(false);
     if (isLoggedIn) {
-        win.loadFile('src/index.html');  // Redirect to index page
+        win.loadFile(path.join(__dirname, 'index.html')); // Redirect to index page
     } else {
-        win.loadFile('src/login.html');  // Stay on the login page
+        win.loadFile(path.join(__dirname, 'login.html')); // Stay on the login page
     }
-    win.webContents.openDevTools();
+    // win.webContents.openDevTools();
+
 }
 
 app.whenReady().then(() => {
@@ -38,8 +38,8 @@ app.whenReady().then(() => {
 
 // Dummy login credentials
 const validCredentials = {
-    email: "user@example.com",
-    password: "password123"
+    email: "secure@nssadan.com",
+    password: "Nssadan@#2344"
 };
 
 ipcMain.handle('login', (event, credentials) => {
